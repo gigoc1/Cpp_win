@@ -11,7 +11,7 @@
             "command": "g++",
             "args": [
                 "-g",
-                "${fileDirname}\\**.cpp",
+                "${fileDirname}\\${fileBasenameNoExtension}.cpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
