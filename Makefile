@@ -15,6 +15,7 @@ OBJ_DIR = ./obj
 # 생성하고자 하는 실행 파일 이름
 TARGET = main
 
+BUILD_DIR = ./bin
 # Make 할 소스 파일들
 # wildcard 로 SRC_DIR 에서 *.cc 로 된 파일들 목록을 뽑아낸 뒤에
 # notdir 로 파일 이름만 뽑아낸다.
@@ -38,21 +39,29 @@ $(TARGET) : $(OBJECTS)
 .PHONY: client
 client: $(OBJ_DIR)/client_test.o $(OBJ_DIR)/common.o
 	$(CC) $(CFLAGS) $(OBJ_DIR)/client_test.o $(OBJ_DIR)/common.o -o client $(LDFLAGS)
+	size $@.exe
+	mv $@.exe bin
 
 .PHONY: server
 server: $(OBJ_DIR)/server_test.o $(OBJ_DIR)/common.o
 	$(CC) $(CFLAGS) $(OBJ_DIR)/server_test.o $(OBJ_DIR)/common.o -o server $(LDFLAGS)
+	size $@.exe
+	mv $@.exe bin
 
 .PHONY: chat_client
 chat_client: $(OBJ_DIR)/chat_client.o $(OBJ_DIR)/common.o
 	$(CC) $(CFLAGS) $(OBJ_DIR)/chat_client.o $(OBJ_DIR)/common.o -o chat_client $(LDFLAGS)
+	size $@.exe
+	mv $@.exe bin
 
 .PHONY: chat_server
 chat_server: $(OBJ_DIR)/chat_server.o $(OBJ_DIR)/common.o
 	$(CC) $(CFLAGS) $(OBJ_DIR)/chat_server.o $(OBJ_DIR)/common.o -o chat_server $(LDFLAGS)
+	size $@.exe
+	mv $@.exe bin
 
 .PHONY: clean all
 clean:
-	rm -f $(OBJECTS) $(DEPS) $(TARGET)
+	rm -f $(OBJECTS) $(DEPS) $(TARGET) $(BUILD_DIR)/*.exe
 
 -include $(DEPS)
