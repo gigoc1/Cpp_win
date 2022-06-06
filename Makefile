@@ -43,6 +43,14 @@ client: $(OBJ_DIR)/client_test.o $(OBJ_DIR)/common.o
 server: $(OBJ_DIR)/server_test.o $(OBJ_DIR)/common.o
 	$(CC) $(CFLAGS) $(OBJ_DIR)/server_test.o $(OBJ_DIR)/common.o -o server $(LDFLAGS)
 
+.PHONY: chat_client
+chat_client: $(OBJ_DIR)/chat_client.o $(OBJ_DIR)/common.o
+	$(CC) $(CFLAGS) $(OBJ_DIR)/chat_client.o $(OBJ_DIR)/common.o -o chat_client $(LDFLAGS)
+
+.PHONY: chat_server
+chat_server: $(OBJ_DIR)/chat_server.o $(OBJ_DIR)/common.o
+	$(CC) $(CFLAGS) $(OBJ_DIR)/chat_server.o $(OBJ_DIR)/common.o -o chat_server $(LDFLAGS)
+
 .PHONY: clean all
 clean:
 	rm -f $(OBJECTS) $(DEPS) $(TARGET)
