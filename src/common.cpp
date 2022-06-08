@@ -9,11 +9,11 @@ IN_ADDR GetDefaultMyIP()
 
     HOSTENT* ptr = gethostbyname(localhostname);
     while(ptr && ptr->h_name)
+    // while(ptr->h_addr_list !=NULL)
     {
         if(ptr->h_addrtype == PF_INET)
         {
             memcpy(&addr, ptr->h_addr_list[0], ptr->h_length);
-            break;
         }
         ptr++;
     }

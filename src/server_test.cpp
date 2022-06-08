@@ -14,7 +14,7 @@ SOCKET SetTCPServer(short pnum, int blog)
     int re = 0;
     re = bind(sock, (SOCKADDR*)&servaddr, sizeof(servaddr));
     if(re == -1){return -1;}
-    re = listen(sock, blog); //백로그 큐 크기 설정
+    re = listen(sock, blog); //백 로그 큐 설정
     if(re == -1){return -1;}
     printf("%s:%d Setup\n", inet_ntoa(servaddr.sin_addr), pnum);
     return sock;
@@ -87,9 +87,9 @@ int main()
     }
     #endif
 
-    SOCKET sock = SetTCPServer(PORT_NUM, BLOG_SIZE); //대기 소켓 가동
+    SOCKET sock = SetTCPServer(PORT_NUM, BLOG_SIZE); //대기 소켓 설정
     AcceptLoop(sock); //Accept Loop
-    closesocket(sock); //소켓 해제
+    closesocket(sock); //윈속 해제
 
 
     WSACleanup();
