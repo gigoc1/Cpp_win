@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Sspiexample.h"
+#include "common.h"
 
 CredHandle hcred;
 struct _SecHandle hctxt;
@@ -259,7 +260,7 @@ BOOL AcceptAuthSocket(SOCKET *ServerSocket)
     //  Bind to local port.
 
     sockIn.sin_family = AF_INET;
-    sockIn.sin_addr.s_addr = 0;
+    sockIn.sin_addr.s_addr = inet_addr("172.26.160.1");
     sockIn.sin_port = htons(usPort);
 
     if (SOCKET_ERROR == bind(
@@ -270,7 +271,7 @@ BOOL AcceptAuthSocket(SOCKET *ServerSocket)
         fprintf(stderr, "bind failed: %u\n", GetLastError());
         return (FALSE);
     }
-
+    printf("server ip is %s:%d\n", inet_ntoa(sockIn.sin_addr), ntohs(sockIn.sin_port));
     //-----------------------------------------------------------------
     //  Listen for client.
 

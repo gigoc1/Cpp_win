@@ -1,4 +1,4 @@
-//ë¡œì»¬ í˜¸ìŠ¤íŠ¸ IPv4 ì£¼ì†Œ ì–»ì–´ì˜¤ê¸°
+//·ÎÄÃ È£½ºÆ® IPv4 ÁÖ¼Ò ¾ò¾î¿À±â
 #include <WinSock2.h>
 #include <Windows.h>
 #include <stdio.h>
@@ -22,19 +22,20 @@ void ViewLocalHostIPv4()
     char localhostname[MAX_PATH];
     IN_ADDR addr = { 0, };
 
-    if (gethostname(localhostname, MAX_PATH) == SOCKET_ERROR)//í˜¸ìŠ¤íŠ¸ ì´ë¦„ ì–»ì–´ì˜¤ê¸°
+    if (gethostname(localhostname, MAX_PATH) == SOCKET_ERROR)//È£½ºÆ® ÀÌ¸§ ¾ò¾î¿À±â
     {
         return;
     }
-    HOSTENT* ptr = gethostbyname(localhostname);//í˜¸ìŠ¤íŠ¸ ì—”íŠ¸ë¦¬ ì–»ì–´ì˜¤ê¸°
+    printf("localhostname: %s\n", localhostname);
+    HOSTENT* ptr = gethostbyname(localhostname);//È£½ºÆ® ¿£Æ®¸® ¾ò¾î¿À±â
     while (ptr && ptr->h_name)
     {
-        if (ptr->h_addrtype == PF_INET)//IPv4 ì£¼ì†Œ íƒ€ìž…ì¼ ë•Œ
+        if (ptr->h_addrtype == PF_INET)//IPv4 ÁÖ¼Ò Å¸ÀÔÀÏ ¶§
         {
             for (int index = 0; ptr->h_addr_list[index]; index++)
             {
-                memcpy(&addr, ptr->h_addr_list[index], ptr->h_length);//ë©”ëª¨ë¦¬ ë³µì‚¬
-                printf("%s\n", inet_ntoa(addr));
+                memcpy(&addr, ptr->h_addr_list[index], ptr->h_length);//¸Þ¸ð¸® º¹»ç
+                printf("%s, ¹®ÀÚ¿­: %s\n", inet_ntoa(addr), ptr->h_addr_list[index]);
             }
         }
         ptr++;
