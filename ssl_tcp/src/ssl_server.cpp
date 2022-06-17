@@ -42,7 +42,7 @@ int main()
     //-----------------------------------------------------------------
     //  Set the default package to negotiate.
 
-    strcpy_s((char *)g_lpPackageName, 1024 * sizeof(TCHAR), "Negotiate");
+    strcpy_s(g_lpPackageName, 1024 * sizeof(TCHAR), "Negotiate");
 
     //-----------------------------------------------------------------
     //  Initialize the socket interface and the security package.
@@ -260,7 +260,7 @@ BOOL AcceptAuthSocket(SOCKET *ServerSocket)
     //  Bind to local port.
 
     sockIn.sin_family = AF_INET;
-    sockIn.sin_addr.s_addr = inet_addr("172.26.160.1");
+    sockIn.sin_addr.s_addr = inet_addr("172.26.176.1");
     sockIn.sin_port = htons(usPort);
 
     if (SOCKET_ERROR == bind(
