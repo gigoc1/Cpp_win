@@ -33,14 +33,14 @@ int _tmain(int argc, _TCHAR *argv[])
     // salt 값을 화면에 표시
     for (int i = 0; i < sizeof(salt); i++)
     {
-        printf("%02X", salt[i]);
+        printf("salt is :%02X\n", salt[i]);
     }
     // 키 값을 화면에 표시
     if (EVP_CIPHER_key_length(cipher) > 0)
     {
         for (int i = 0; i < EVP_CIPHER_key_length(cipher); i++)
         {
-            printf("%02X", key[i]);
+            printf("key is :%02X\n", key[i]);
         }
     }
     // IV 값을 화면에 표시
@@ -48,8 +48,8 @@ int _tmain(int argc, _TCHAR *argv[])
     {
         for (int i = 0; i < EVP_CIPHER_iv_length(cipher); i++)
         {
-            printf("%02X", iv[i]);
+            printf("iv is :%02X\n", iv[i]);
         }
-        return 0;
     }
+    return 0;
 }
