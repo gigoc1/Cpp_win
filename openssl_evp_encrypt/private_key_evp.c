@@ -1,5 +1,6 @@
 #include <tchar.h>
 #include <stdio.h>
+#include<openssl/applink.c>
 #include <openssl/evp.h>
 #include <openssl/bio.h>
 #include <openssl/err.h>
@@ -10,6 +11,7 @@
 
 #define IN_FILE  "plain.txt" //평문 파일
 #define OUT_FILE  "encrypt.bin" // 암호문이 저장될 파일
+#define true 1
  
 unsigned char * readFile(char * file,int *readLen);
 unsigned char * readFileBio(BIO * fileBIO,int *readLen);
