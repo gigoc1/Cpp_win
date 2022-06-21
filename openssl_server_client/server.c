@@ -80,13 +80,15 @@ void configure_context(SSL_CTX *ctx)
 
 int main(int argc, char **argv)
 {
+    WSADATA wsaData;
+    WSAStartup(MAKEWORD(2, 2), &wsaData);
+
     int sock;
     SSL_CTX *ctx;
 
     ctx = create_context();
 
     configure_context(ctx);
-
     sock = create_socket(4433);
 
     /* Handle connections */
