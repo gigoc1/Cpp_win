@@ -260,11 +260,7 @@ BOOL AcceptAuthSocket(SOCKET *ServerSocket)
     //  Bind to local port.
 
     sockIn.sin_family = AF_INET;
-<<<<<<< Updated upstream
     sockIn.sin_addr.s_addr = inet_addr("172.26.176.1");
-=======
-    sockIn.sin_addr.s_addr = inet_addr("172.24.48.1");
->>>>>>> Stashed changes
     sockIn.sin_port = htons(usPort);
 
     if (SOCKET_ERROR == bind(

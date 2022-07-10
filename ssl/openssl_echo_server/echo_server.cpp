@@ -1,5 +1,6 @@
 /*
   - https://m.blog.naver.com/beodeulpiri/221461025247
+  - openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
   - tasks.json
                         "-g",
                         "${fileDirname}\\${fileBasenameNoExtension}.cpp",
@@ -212,6 +213,7 @@ int main(int arc, char **argv)
 
     struct addrinfo *result = NULL;
     struct addrinfo hints;
+    sockaddr_in sock_serv;
 
     // Initialize Winsock
     iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -229,6 +231,7 @@ int main(int arc, char **argv)
 
     // Resolve the server address and port
     iResult = getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
+
     if (iResult != 0)
     {
         printf("getaddrinfo failed with error: %d\n", iResult);
@@ -236,6 +239,7 @@ int main(int arc, char **argv)
         return 1;
     }
 
+    // 아래 코드는 가용 ip를 모두 불러오므로 필요한 ip만 적용하기로 함
     // Create a SOCKET for connecting to server
     ListenSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
     if (ListenSocket == INVALID_SOCKET)
@@ -245,9 +249,15 @@ int main(int arc, char **argv)
         WSACleanup();
         return 1;
     }
+    
+    sock_serv.sin_family = AF_INET;
+    sock_serv.sin_addr.s_addr = inet_addr("172.19.224.1");
+    sock_serv.sin_port = htons(9002);
+
+    printf("server ip is %s\n", inet_ntoa(sock_serv.sin_addr));
 
     // Setup the TCP listening socket
-    iResult = bind(ListenSocket, result->ai_addr, (int)result->ai_addrlen);
+    iResult = bind(ListenSocket, (struct sockaddr*)&sock_serv, sizeof(sock_serv));
     if (iResult == SOCKET_ERROR)
     {
         printf("bind failed with error: %d\n", WSAGetLastError());

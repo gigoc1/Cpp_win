@@ -13,6 +13,26 @@ https://wiki.openssl.org/index.php/Simple_TLS_Server
 #include <openssl/err.h>
 #include <openssl/applink.c>
 
+IN_ADDR GetDefaultMyIP()
+{
+    char localhostname[MAX_PATH];
+    IN_ADDR addr = {0,};
+    if (gethostname(localhostname, MAX_PATH)==SOCKET_ERROR)
+    return addr;
+
+    HOSTENT* ptr = gethostbyname(localhostname);
+    while(ptr && ptr->h_name)
+    // while(ptr->h_addr_list !=NULL)
+    {
+        if(ptr->h_addrtype == PF_INET)
+        {
+            memcpy(&addr, ptr->h_addr_list[0], ptr->h_length);
+        }
+        ptr++;
+    }
+    return addr;
+}
+
 int create_socket(int port)
 {
     int s;
@@ -20,7 +40,7 @@ int create_socket(int port)
 
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port);
-    addr.sin_addr.s_addr = htonl(INADDR_ANY);
+    addr.sin_addr = GetDefaultMyIP();
 
     s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (s < 0)
@@ -40,6 +60,7 @@ int create_socket(int port)
         perror("Unable to listen");
         exit(EXIT_FAILURE);
     }
+    printf("Server ip is: %s\n", inet_ntoa(addr.sin_addr));
 
     return s;
 }
@@ -97,7 +118,7 @@ int main(int argc, char **argv)
         struct sockaddr_in addr;
         int len = sizeof(addr);
         SSL *ssl;
-        const char reply[] = "test\n";
+        const char reply[] = "good morning. I am Kang, Daekyung\n";
 
         int client = accept(sock, (struct sockaddr *)&addr, &len);
         if (client < 0)
