@@ -251,7 +251,7 @@ int main(int arc, char **argv)
     }
     
     sock_serv.sin_family = AF_INET;
-    sock_serv.sin_addr.s_addr = inet_addr("172.19.224.1");
+    sock_serv.sin_addr.s_addr = inet_addr("172.26.240.1");
     sock_serv.sin_port = htons(9002);
 
     printf("server ip is %s\n", inet_ntoa(sock_serv.sin_addr));

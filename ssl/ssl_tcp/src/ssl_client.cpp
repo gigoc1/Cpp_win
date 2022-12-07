@@ -358,7 +358,7 @@ BOOL GenClientContext(
         ss = InitializeSecurityContext(
             hCred,
             hcText,
-            (SEC_WCHAR *)pszTarget,
+            pszTarget,
             MessageAttribute,
             0,
             SECURITY_NATIVE_DREP,
@@ -374,7 +374,7 @@ BOOL GenClientContext(
         ss = InitializeSecurityContext(
             hCred,
             NULL,
-            (SEC_WCHAR *)pszTarget,
+            pszTarget,
             MessageAttribute,
             0,
             SECURITY_NATIVE_DREP,

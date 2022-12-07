@@ -40,7 +40,8 @@ int create_socket(int port)
 
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port);
-    addr.sin_addr = GetDefaultMyIP();
+    addr.sin_addr.s_addr = inet_addr("172.26.240.1");
+    // addr.sin_addr = GetDefaultMyIP();
 
     s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (s < 0)

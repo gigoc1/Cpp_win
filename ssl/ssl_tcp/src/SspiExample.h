@@ -14,7 +14,7 @@ BOOL GenClientContext (
     BYTE *pOut,
     DWORD *pcbOut,
     BOOL *pfDone,
-    CHAR *pszTarget,
+    SEC_WCHAR *pszTarget,
     CredHandle *hCred,
     struct _SecHandle *hcText
 );
