@@ -40,7 +40,7 @@ int create_socket(int port)
 
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port);
-    addr.sin_addr.s_addr = inet_addr("172.26.240.1");
+    addr.sin_addr.s_addr = inet_addr("172.25.128.1");
     // addr.sin_addr = GetDefaultMyIP();
 
     s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -111,7 +111,7 @@ int main(int argc, char **argv)
     ctx = create_context();
 
     configure_context(ctx);
-    sock = create_socket(4433);
+    sock = create_socket(2002);
 
     /* Handle connections */
     while (1)

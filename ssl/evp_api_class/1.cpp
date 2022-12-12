@@ -15,13 +15,14 @@ int main(int argc, const char *argv[])
      */
     // EVP API를 써서 des_cbc를 하기위해 초가화 과정
     const EVP_CIPHER *c = EVP_des_cbc();
+    // const EVP_CIPHER *c = EVP_aes_128_cbc();
     EVP_CIPHER_CTX *ctx_enc = EVP_CIPHER_CTX_new();
     if (ctx_enc == NULL)
     {
         printf("EVP_CIPHER_CTX_new is NULL error!!\n");
         return -1;
     }
-    if (!(EVP_EncryptInit_ex(ctx_enc, c, NULL, NULL, NULL)))
+    if ((!EVP_EncryptInit_ex(ctx_enc, c, NULL, NULL, NULL)))
     {                                           //콘텍스트에 EVP_des_cbc를 사용한다고 말해준다!!
         printf("EVP_EncryptInit_ex error!!\n"); //그래서 초반에 EVP_EncryptInit_ex()함수를 실행해준다.
         return -1;
@@ -48,11 +49,13 @@ int main(int argc, const char *argv[])
     }
     printf("Use key value : ");
     for (int i = 0; i < (int)strlen((const char *)key); i++) // key값 출력
-        printf("0x%X ", key[i]);
+        printf("0x%02X ", key[i]);
+    printf("\nkey length = %d\n", (int)strlen((const char *)key));
     printf("\n");
     printf("Use iv value : ");
     for (int i = 0; i < (int)strlen((const char *)iv); i++) // iv값 출력
-        printf("0x%X ", iv[i]);
+        printf("0x%02X ", iv[i]);
+    printf("\niv length = %d\n", (int)strlen((const char *)iv));
     printf("\n");
 
     unsigned char *plain_txt = (unsigned char *)"Hello hihi my name is honggildong nice to meet you  nice to meet you too!!."; // Plain_Text
