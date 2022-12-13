@@ -1,3 +1,10 @@
+/*
+reference: https://learn.microsoft.com/ko-kr/windows/win32/secauthn/using-sspi-with-a-windows-sockets-client
+error solved: InitializeSecurityContext  --> InitializeSecurityContextW 로 변경
+              void main()  --> int main() {return 0;} 으로 변경
+              SspiExample.h에서 MyHandError(char *s) --> MyHandError(const char *) 로 변경
+*/
+
 //--------------------------------------------------------------------
 //  Client-side program to establish an SSPI socket connection
 //  with a server and exchange messages.
@@ -47,6 +54,7 @@ int main()
     SecPkgContext_Sizes SecPkgContextSizes;
     SecPkgContext_NegotiationInfo SecPkgNegInfo;
     BOOL DoAuthentication(SOCKET s);
+
 
     //-------------------------------------------------------------------
     //  Initialize the socket and the SSP security package.
@@ -355,10 +363,10 @@ BOOL GenClientContext(
         InSecBuff.BufferType = SECBUFFER_TOKEN;
         InSecBuff.pvBuffer = pIn;
 
-        ss = InitializeSecurityContext(
+        ss = InitializeSecurityContextW(
             hCred,
             hcText,
-            pszTarget,
+            (SEC_WCHAR *)pszTarget,
             MessageAttribute,
             0,
             SECURITY_NATIVE_DREP,
@@ -371,10 +379,10 @@ BOOL GenClientContext(
     }
     else
     {
-        ss = InitializeSecurityContext(
+        ss = InitializeSecurityContextW(
             hCred,
             NULL,
-            pszTarget,
+            (SEC_WCHAR *)pszTarget,
             MessageAttribute,
             0,
             SECURITY_NATIVE_DREP,

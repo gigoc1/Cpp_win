@@ -70,4 +70,4 @@ BOOL CloseAuthSocket (SOCKET s);
 
 BOOL DoAuthentication (SOCKET s);
 
-void MyHandleError(char *s);
+void MyHandleError(const char *s);

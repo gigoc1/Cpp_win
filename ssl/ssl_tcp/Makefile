@@ -31,10 +31,14 @@ DEPS = $(OBJECTS:.o=.d)
 all: main
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp
-	$(CC) $(CFLAGS) -c $< -o $@ -MD $(LDFLAGS)
+	$(CC) $(CFLAGS) -c $< -o $@ -MD
 
-$(TARGET) : $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) -o $(TARGET) $(LDFLAGS)
+# $(TARGET) : $(OBJECTS)
+# 	$(CC) $(CFLAGS) $(OBJECTS) -o $(TARGET) $(LDFLAGS)
+
+
+# $(OBJ_DIR)/ssl_client.o $(OBJ_DIR)/common.o : $(SRC_DIR)/ssl_client.cpp $(SRC_DIR)/common.cpp
+# 	$(CC) $(CFLAGS) -c $< -o $@ -MD
 
 .PHONY: ssl_client
 ssl_client: $(OBJ_DIR)/ssl_client.o $(OBJ_DIR)/common.o
@@ -42,14 +46,16 @@ ssl_client: $(OBJ_DIR)/ssl_client.o $(OBJ_DIR)/common.o
 	size $@.exe
 	mv $@.exe bin
 
+
 .PHONY: ssl_server
 ssl_server: $(OBJ_DIR)/ssl_server.o $(OBJ_DIR)/common.o
 	$(CC) $(CFLAGS) $(OBJ_DIR)/ssl_server.o $(OBJ_DIR)/common.o -o ssl_server $(LDFLAGS)
 	size $@.exe
 	mv $@.exe bin
 
+
 .PHONY: clean all
 clean:
-	rm -f $(OBJECTS) $(DEPS) $(TARGET) $(BUILD_DIR)/*.exe
+	rm -f $(OBJ_DIR)/* $(BUILD_DIR)/*
 
 -include $(DEPS)

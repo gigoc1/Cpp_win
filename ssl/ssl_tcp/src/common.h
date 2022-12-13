@@ -6,5 +6,5 @@
 #include <string.h>
 #include <stdlib.h>
 #include <malloc.h>
-#pragma comment(lib, "ws2_32")
+// #pragma comment(lib, "ws2_32")
 IN_ADDR GetDefaultMyIP();
