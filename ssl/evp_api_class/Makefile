@@ -2,11 +2,11 @@ CC = g++
 
 # C++ 컴파일러 옵션
 # CXXFLAGS = -g -Wall -O2 "-IC:/Program Files/OpenSSL-Win64/include", -llibssl
-CXXFLAGS = -g "-IC:/Program Files/OpenSSL-Win64/include"
+CXXFLAGS = -g "-IC:/Program Files/OpenSSL/include"
 
 
 # 링커 옵션
-LDFLAGS += "-LC:/Program Files/OpenSSL-Win64/lib" -llibcrypto
+LDFLAGS += "-LC:/Program Files/OpenSSL/lib" -llibcrypto
 
 # 소스 파일 디렉토리
 SRC_DIR = .
@@ -53,8 +53,13 @@ $(OBJ_DIR)/rsa.o : $(SRC_DIR)/3_rsa.cpp
 rsa : $(OBJ_DIR)/rsa.o
 	$(CC) $< -o $@ $(LDFLAGS)
 
+$(OBJ_DIR)/key.o : $(SRC_DIR)/4_rsa_key_pair.cpp
+	$(CC) -c $< -o $@ $(CXXFLAGS)
+key : $(OBJ_DIR)/key.o
+	$(CC) $< -o $@ $(LDFLAGS)
+
 .PHONY: clean all
 clean:
-	rm -f $(OBJ_DIR)/*.o des aes rsa
+	rm -f $(OBJ_DIR)/*.o des aes rsa key
 
 -include $(DEPS)

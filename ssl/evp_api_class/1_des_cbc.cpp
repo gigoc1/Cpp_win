@@ -5,8 +5,32 @@
 #include <openssl/rand.h> //openssl의 헤더파일
 #include <openssl/evp.h>  //이것도
 
+#include <openssl/provider.h>
+
 int main(int argc, const char *argv[])
 {
+     /*
+    legacy algorithm(DES-CBC) provider setting
+    reference: https://github.com/openssl/openssl/blob/master/README-PROVIDERS.md
+    */
+    OSSL_PROVIDER *legacy;
+    OSSL_PROVIDER *deflt;
+
+    /* Load Multiple providers into the default (NULL) library context */
+    deflt = OSSL_PROVIDER_load(NULL, "default");
+    if (deflt == NULL) {
+        printf("Failed to load Default provider\n");
+        OSSL_PROVIDER_unload(legacy);
+        exit(EXIT_FAILURE);
+    }
+
+    legacy = OSSL_PROVIDER_load(NULL, "legacy");
+    if (legacy == NULL) {
+        printf("Failed to load Legacy provider\n");
+        exit(EXIT_FAILURE);
+    }
+    
+
     /*
      *
      * Enctypt
@@ -108,6 +132,12 @@ int main(int argc, const char *argv[])
     printf("\n");
     printf("Decrypted: >>%s<<\n", dec_plain_txt);
     printf("\n");
+
+    /* Rest of application */
+
+    OSSL_PROVIDER_unload(legacy);
+    OSSL_PROVIDER_unload(deflt);
+    exit(EXIT_SUCCESS);
 
     return 0; //메인 끝나는 부분
 }
