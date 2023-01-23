@@ -2,11 +2,11 @@ CC = gcc
 
 # C++ 컴파일러 옵션
 # CXXFLAGS = -g -Wall -O2 "-IC:/Program Files/OpenSSL-Win64/include", -llibssl
-CXXFLAGS = -g "-IC:/Program Files/OpenSSL-Win64/include"
+CXXFLAGS = -g "-IC:\\Program Files\\OpenSSL\\include"
 
 
 # 링커 옵션
-LDFLAGS += "-LC:/Program Files/OpenSSL-Win64/lib" -llibssl -llibcrypto -lws2_32
+LDFLAGS += "-LC:\\Program Files\\OpenSSL\\lib" -llibssl -llibcrypto -lws2_32
 
 # 소스 파일 디렉토리
 SRC_DIR = .
