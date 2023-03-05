@@ -15,7 +15,7 @@ error solved: InitializeSecurityContext  --> InitializeSecurityContextW 로 변�
 #define SECURITY_WIN32
 #define BIG_BUFF 2048
 #define SEC_SUCCESS(Status) ((Status) >= 0)
-#define g_usPort 2000
+#define g_usPort 9999
 
 #define cbMaxMessage 12000
 #define MessageAttribute ISC_REQ_CONFIDENTIALITY
@@ -35,7 +35,8 @@ struct _SecHandle hcText;
 //  be defined as the name of the computer running the server sample.
 //  TargetName must be defined as the logon name of the user running
 //  the server program.
-#define ServerName "Server_Computer_Name"
+// #define ServerName "Server_Computer_Name"
+#define ServerName "172.25.34.49"
 #define TargetName "Server_User_Logon_Name"
 
 int main()
